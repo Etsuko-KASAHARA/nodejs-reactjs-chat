@@ -7,18 +7,21 @@ app.use(cors({ origin: true }));
 
 app.post("/authenticate", async (req, res) => {
   const { username } = req.body;   //requestbodyからusenameをとる
-  try {
-    const r = await axios.put(
-      'https://api.chatengine.io/users/',
-      {username: username, secret: username, first_name: username},
-      {headers: {"provate-key": "4a93b34e-410a-427f-aa42-2fdfdf7e56a5" }} //プロジェクトのprovate key
-    )
-    return res.status(r.status).json(r.data)
-  } catch (e) {
-    return res.status(e.response.status).json(e.response.data)
-  }
+  
+
+try {
+  const r = await axios.post(
+    "https://api.chatengine.io/users/",
+    { username: username, secret: username, first_name: username},
+    { headers: { "Private-Key": "4a93b34e-410a-427f-aa42-2fdfdf7e56a5" } }
+  );
+  return res.status(r.status).json(r.data);
+} catch (e) {
+  return res.status(e.response.status).json(e.response.data);
+}
+});
 //return dataか、エラー
-});//post and authehnticate → return fake usename and password
+//post and authehnticate → return fake usename and password
 
 
 
